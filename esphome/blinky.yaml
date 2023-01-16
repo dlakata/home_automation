@@ -1,0 +1,22 @@
+esphome:
+  name: blinky
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+logger:
+
+switch:
+  - platform: gpio
+    pin:
+      number: 23
+      mode: output
+    id: led
+
+interval:
+  - interval: 2s
+    then:
+      - switch.toggle: led
+      - logger.log: "LED toggling"

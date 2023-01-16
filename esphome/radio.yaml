@@ -1,0 +1,52 @@
+esphome:
+  name: radio
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+switch:
+  - platform: gpio
+    pin: 13
+    id: fan_power_switch
+    name: "Fan Power Switch"
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: fan_power_switch
+
+remote_transmitter:
+  pin: 22
+  # RF uses a 100% carrier signal
+  carrier_duty_percent: 100%
+
+remote_receiver:
+  pin: 23
+  dump: rc_switch
+  # Settings to optimize recognition of RF devices
+  tolerance: 50%
+  filter: 250us
+  idle: 4ms
+  buffer_size: 2kb
+  on_rc_switch:
+    then:
+      - switch.turn_on: fan_power_switch
+      - logger.log: "Received!"
+
+binary_sensor:
+  - platform: gpio
+    id: transmit
+    pin: 36
+    filters:
+      - delayed_on: 10ms
+    on_press:
+      - then:
+          - remote_transmitter.transmit_rc_switch_raw:
+              code: "10000101010001101100001000100100"
+              protocol:
+                pulse_length: 252
+      - then:
+          - logger.log: "Sending transmit"

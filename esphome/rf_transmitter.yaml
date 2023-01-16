@@ -1,0 +1,57 @@
+esphome:
+  name: rftransmitter
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: ""
+
+ota:
+  password: ""
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "rftransmitter Fallback Hotspot"
+    password: !secret fallback_hotspot_password
+
+captive_portal:
+
+switch:
+  - platform: gpio
+    pin: 13
+    id: fan_power_switch
+    name: "Fan Power Switch"
+    on_turn_on:
+      - delay: 200ms
+      - switch.turn_off: fan_power_switch
+
+remote_transmitter:
+  pin: 22
+  # RF uses a 100% carrier signal
+  carrier_duty_percent: 100%
+
+binary_sensor:
+  - platform: gpio
+    id: transmit
+    pin: 23
+    filters:
+      - delayed_on: 10ms
+    on_press:
+      - then:
+          - remote_transmitter.transmit_rc_switch_raw:
+              code: "10000101010001101100001000100100"
+              protocol:
+                pulse_length: 252
+      - then:
+          - logger.log: "Sending transmit"

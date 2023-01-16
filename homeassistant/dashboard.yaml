@@ -1,0 +1,58 @@
+title: Home
+views:
+  - path: default_view
+    title: Home
+    cards:
+      - type: entities
+        entities:
+          - entity: light.floorlamp
+          - entity: light.desklamp
+          - entity: light.tasmota
+        title: Living Room
+      - type: vertical-stack
+        cards:
+          - type: custom:hourly-weather
+            entity: weather.forecast_home_hourly
+            show_precipitation_amounts: true
+            icons: false
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home
+            name: Daily
+      - square: false
+        columns: 2
+        type: grid
+        cards:
+          - type: gauge
+            entity: sensor.octoprint_job_percentage
+          - show_name: true
+            show_icon: true
+            show_state: true
+            type: glance
+            entities:
+              - entity: sensor.octoprint_estimated_finish_time
+            columns: 1
+      - type: markdown
+        content: "- [Octoprint](http://192.168.1.13:5000)"
+        title: Links
+      - type: grid
+        square: false
+        columns: 1
+        cards:
+          - type: media-control
+            entity: media_player.kitchen_speaker
+          - type: media-control
+            entity: media_player.living_room_tv
+        aspect_ratio: 100%
+  - theme: Backend-selected
+    title: System
+    path: system
+    badges: []
+    cards:
+      - type: entities
+        entities:
+          - entity: sensor.disk_use_percent
+          - entity: sensor.disk_free
+          - entity: sensor.last_boot
+          - entity: sensor.memory_use_percent
