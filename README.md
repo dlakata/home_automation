@@ -34,8 +34,9 @@ Statically reserve 192.168.1.13 for the Pi.
 
 - Connect to the tasmota wifi
 - Provide the home network wifi credentials
-- Provide a new hostname
-- Provide the 192.168.1.13 host to the MQTT Tasmota settings. Port is 1883
+- Provide a new hostname (Configuration > Configure Other > Device Name + Friendly Name)
+- Provide the 192.168.1.13 host to the MQTT Tasmota settings (Configuration > Configure MQTT)
+  - Port is 1883
 - Add toggle in Home Assistant
 
 ## Adding a new IR command
