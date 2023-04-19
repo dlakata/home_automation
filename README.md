@@ -34,6 +34,8 @@ Statically reserve 192.168.1.13 for the Pi.
 
 - Connect to the tasmota wifi
 - Provide the home network wifi credentials
+  - Not the extension home network, just the base name
+  - If you provide the wrong network, you can reset the device by turning it on/off 7 times: https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery
 - Provide a new hostname (Configuration > Configure Other > Device Name + Friendly Name)
 - Provide the 192.168.1.13 host to the MQTT Tasmota settings (Configuration > Configure MQTT)
   - Port is 1883
