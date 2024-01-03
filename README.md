@@ -32,7 +32,9 @@ Statically reserve 192.168.1.13 for the Pi.
 
 ## Adding a new smart plug
 
-- Connect to the tasmota wifi
+- Connect to the tasmota wifi. If the tasmota wifi isn't appearing:
+  - It's possible the specific power outlet isn't playing well with the plug, for whatever reason. Try another outlet.
+  - It's possible the plug was already configured to the home network. Visit http://192.168.1.1/ and look among "Attached Devices" for devices similar to TASMOTA-XXX-YYY.
 - Provide the home network wifi credentials
   - Not the extension home network, just the base name
   - If you provide the wrong network, you can reset the device by turning it on/off 7 times: https://tasmota.github.io/docs/Device-Recovery/#fast-power-cycle-device-recovery
